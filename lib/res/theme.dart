@@ -4,5 +4,6 @@ import 'package:flutter/material.dart';
 ThemeData themeData = ThemeData(
   primaryColor: primaryColor,
   accentColor: accentColor,
-  scaffoldBackgroundColor: Colors.white
+  scaffoldBackgroundColor: Colors.white,
+  fontFamily: 'DMSans'
 );
