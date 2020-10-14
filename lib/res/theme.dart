@@ -5,5 +5,5 @@ ThemeData themeData = ThemeData(
   primaryColor: primaryColor,
   accentColor: accentColor,
   scaffoldBackgroundColor: Colors.white,
-  fontFamily: 'DMSans'
+  fontFamily: 'DMSans',
 );

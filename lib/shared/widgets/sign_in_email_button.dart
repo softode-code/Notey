@@ -1,4 +1,5 @@
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/screens/authentication/authenticate.dart';
 import 'package:Notey/shared/widgets/primary_button_background.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class SignInEmailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> print('email'),
+      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: true,))),
       child: PrimaryButtonBackground(
         child: Text(
           'Sign in with Email',
