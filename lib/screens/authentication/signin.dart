@@ -1,4 +1,5 @@
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/services/auth.dart';
 import 'package:Notey/shared/constants.dart';
 import 'package:Notey/shared/widgets/circular_google_button.dart';
 import 'package:Notey/shared/widgets/footer.dart';
@@ -92,9 +93,12 @@ class _SignInState extends State<SignIn> {
                       Center(
                         child: FormPrimaryButton(
                           text: 'Sign in',
-                          onPressed: () {
+                          onPressed: () async {
                             if(_formkey.currentState.validate()){
-                              print('Sign in');
+                              dynamic result = await AuthService().signIn(_email, _password);
+                              if(result  != null){
+                                Navigator.pop(context);
+                              }
                             }
                           },
                         ),
