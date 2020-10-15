@@ -112,7 +112,7 @@ class _SignInState extends State<SignIn> {
                 Footer(
                   text: 'Not a member?',
                   actionText: 'Sign up',
-                  onPressed: () => print('Sign up'),
+                  onPressed: widget.toggleView,
                 )
               ],
             ),

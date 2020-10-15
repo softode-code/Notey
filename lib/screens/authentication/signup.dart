@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                 Footer(
                   text: 'Already have an account?',
                   actionText: 'Sign in',
-                  onPressed: () => print('Sign up'),
+                  onPressed: widget.toggleView,
                 )
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/screens/authentication/authenticate.dart';
 import 'package:Notey/shared/widgets/footer.dart';
 import 'package:Notey/shared/widgets/google_text_button.dart';
 import 'package:Notey/shared/widgets/header.dart';
@@ -39,7 +40,7 @@ class Welcome extends StatelessWidget {
                       Footer(
                         text: 'Not a member?',
                         actionText: 'Sign up',
-                        onPressed: ()=> print('Sign up'),
+                        onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: false,))),
                       )
                     ],
                   ),
