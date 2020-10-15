@@ -1,4 +1,3 @@
-import 'package:Notey/res/colors.dart';
 import 'package:Notey/screens/authentication/authenticate.dart';
 import 'package:Notey/shared/widgets/footer.dart';
 import 'package:Notey/shared/widgets/google_text_button.dart';
@@ -15,7 +14,7 @@ class Welcome extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
