@@ -28,7 +28,10 @@ class AuthService {
       print(e.toString());
       return null;
     }
-    
+  }
+
+  Future signout() async {
+    return _auth.signOut();
   }
 
 }

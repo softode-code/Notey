@@ -1,6 +1,5 @@
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/theme.dart';
-import 'package:Notey/screens/authentication/welcome.dart';
 import 'package:Notey/screens/wrapper.dart';
 import 'package:Notey/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
