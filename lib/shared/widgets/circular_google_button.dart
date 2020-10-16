@@ -1,4 +1,5 @@
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -11,7 +12,12 @@ class CircluarGoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => print('Google'),
+      onTap: () async {
+        dynamic result = await AuthService().googleSignIn();
+        if(result != null ){
+          Navigator.pop(context);
+        }
+      },
       child: Container(
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(

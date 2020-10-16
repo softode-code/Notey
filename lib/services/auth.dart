@@ -1,6 +1,7 @@
 import 'package:Notey/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   FirebaseAuth _auth;
@@ -35,6 +36,32 @@ class AuthService {
       UserCredential credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       return _userFromFirebase(credential.user);
     } catch (e) {
+      print('Couldn\'t sign in');
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future googleSignIn() async {
+    try{
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+      GoogleSignInAuthentication signInAuthentication = await googleSignInAccount.authentication;
+
+      AuthCredential authCredential = GoogleAuthProvider.credential(
+        accessToken: signInAuthentication.accessToken,
+        idToken: signInAuthentication.idToken
+      );
+
+      UserCredential userCredential = await _auth.signInWithCredential(authCredential);
+      User user = userCredential.user;
+
+      if(userCredential.additionalUserInfo.isNewUser){
+        //TODO:add user to database
+      }
+
+      return user;
+    } catch(e){
       print('Couldn\'t sign in');
       print(e.toString());
       return null;
