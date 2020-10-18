@@ -72,4 +72,13 @@ class AuthService {
     return _auth.signOut();
   }
 
+  Future<bool> isSignedIn() async {
+    final currentUser = _auth.currentUser;
+    return currentUser != null;
+  }
+
+  Future<UserModel> getUser() async {
+    return _userFromFirebase(_auth.currentUser);
+  }
+
 }
