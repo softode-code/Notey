@@ -1,4 +1,3 @@
-import 'package:Notey/bloc/authentication_bloc/authentication_event.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:equatable/equatable.dart';
 
