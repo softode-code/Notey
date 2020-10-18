@@ -33,18 +33,18 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
   
   //Authentication Logged In
   Stream<AuthenticationState> _mapAuthenticationLoggedInToState() async*{
-    yield AuthenticationSuccess(user: await _authService.getUser());
+    yield AuthenticationSuccess(user: _authService.getUser());
   }
 
 
   //Authentication Started
   Stream<AuthenticationState> _mapAuthenticationStartedToState() async*{
-    final isSignedIn = await _authService.isSignedIn();
+    final isSignedIn = _authService.isSignedIn();
     if(isSignedIn){
-      final UserModel user = await _authService.getUser();
+      final UserModel user = _authService.getUser();
       yield AuthenticationSuccess(user: user);
     } else {
-      AuthenticationFailure();
+      yield AuthenticationFailure();
     }
   }
 

@@ -1,14 +1,11 @@
 import 'package:Notey/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   FirebaseAuth _auth;
 
-  AuthService() {
-    _auth = FirebaseAuth.instance;
-  }
+  AuthService({FirebaseAuth firebaseAuth}) : _auth = firebaseAuth ?? FirebaseAuth.instance;
 
   UserModel _userFromFirebase(User user){
     return user != null ? UserModel(uid: user.uid, email: user.email) : null;
@@ -72,12 +69,12 @@ class AuthService {
     return _auth.signOut();
   }
 
-  Future<bool> isSignedIn() async {
+  bool isSignedIn() {
     final currentUser = _auth.currentUser;
     return currentUser != null;
   }
 
-  Future<UserModel> getUser() async {
+  UserModel getUser(){
     return _userFromFirebase(_auth.currentUser);
   }
 
