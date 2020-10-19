@@ -1,3 +1,5 @@
+import 'package:Notey/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:Notey/bloc/authentication_bloc/authentication_event.dart';
 import 'package:Notey/bloc/register_bloc/register_bloc.dart';
 import 'package:Notey/bloc/register_bloc/register_state.dart';
 import 'package:Notey/res/colors.dart';
@@ -11,17 +13,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SignUp extends StatelessWidget {
 
 
-  final AuthService authService;
+  final AuthService _authService;
   final Function toggleView;
 
-  const SignUp({Key key, this.authService, this.toggleView}) : super(key: key);
+  const SignUp({Key key, AuthService authService, this.toggleView}) : _authService = authService ,super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(authService: authService),
+          create: (context) => RegisterBloc(authService: _authService),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
             child: SingleChildScrollView(
@@ -53,7 +55,8 @@ class SignUp extends StatelessWidget {
                       } 
 
                       if (state.isSuccess) {
-                        print('success');
+                        BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedIn());
+                        Navigator.pop(context);
                       }
 
                       if (state.isSubmitting) {

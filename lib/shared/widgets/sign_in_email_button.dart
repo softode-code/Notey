@@ -1,17 +1,18 @@
 import 'package:Notey/res/colors.dart';
-import 'package:Notey/screens/authentication/authenticate.dart';
 import 'package:Notey/shared/widgets/primary_button_background.dart';
 import 'package:flutter/material.dart';
 
 class SignInEmailButton extends StatelessWidget {
   const SignInEmailButton({
-    Key key,
+    Key key, this.onPressed,
   }) : super(key: key);
+
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: true,))),
+      onTap: onPressed,
       child: PrimaryButtonBackground(
         child: Text(
           'Sign in with Email',

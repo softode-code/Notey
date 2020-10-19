@@ -1,7 +1,9 @@
+import 'package:Notey/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:Notey/bloc/authentication_bloc/authentication_event.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
-import 'package:Notey/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
 
@@ -17,7 +19,7 @@ class Home extends StatelessWidget {
           Icons.logout,
           color: onPrimary,
         ),
-        onPressed:() async => AuthService().signout(),
+        onPressed:() async => BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut()),
       ),
       body: Center(
         child: Text(

@@ -1,4 +1,5 @@
 import 'package:Notey/screens/authentication/authenticate.dart';
+import 'package:Notey/services/auth.dart';
 import 'package:Notey/shared/widgets/footer.dart';
 import 'package:Notey/shared/widgets/google_text_button.dart';
 import 'package:Notey/shared/widgets/header.dart';
@@ -7,6 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Welcome extends StatelessWidget {
+
+  final AuthService authService;
+
+  const Welcome({Key key, this.authService}) : super(key: key);
+
   
   @override
   Widget build(BuildContext context) {
@@ -32,14 +38,18 @@ class Welcome extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GoogleTextButton(),
+                      GoogleTextButton(
+                        
+                      ),
                       SizedBox(height:20),
-                      SignInEmailButton(),
+                      SignInEmailButton(
+                        onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: true,authService: authService,))),
+                      ),
                       SizedBox(height:30),
                       Footer(
                         text: 'Not a member?',
                         actionText: 'Sign up',
-                        onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: false,))),
+                        onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Authenticate(showSignIn: false,authService: authService,))),
                       )
                     ],
                   ),

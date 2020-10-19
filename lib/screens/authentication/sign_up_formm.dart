@@ -29,6 +29,12 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _passwordController = TextEditingController();
   RegisterBloc _registerBloc;
 
+  bool get isPopulated => _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+
+  bool isButtonEnabled(RegisterState state) {
+    return state.isFormValid && isPopulated && !state.isSubmitting;
+  }
+
 
   @override
   void initState() {
@@ -92,7 +98,11 @@ class _SignUpFormState extends State<SignUpForm> {
               Center(
                 child: FormPrimaryButton(
                   text: 'Sign up',
-                  onPressed: _onSignUpWithCredentialPressed,
+                  onPressed: (){
+                    if(isButtonEnabled(state)){
+                      _onSignUpWithCredentialPressed();
+                    }
+                  },
                 ),
               ),
               SizedBox(height:35.0),

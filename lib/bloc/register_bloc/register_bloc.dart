@@ -34,7 +34,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   Stream<RegisterState> _mapRegisterPasswordChangeToState(String password) async* {
     yield state.update(
-      isPasswordValid: Validators.isValidPassword(password)
+      isPasswordValid: password.length < 6 ? false : true
     );
   }
 

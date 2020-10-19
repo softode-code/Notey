@@ -16,7 +16,9 @@ class AuthService {
   }
 
   Future registerUser(String email, String password) async{
+    print('ENTER');
     try {
+      print('enter');
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
       //TODO: add user to firestore

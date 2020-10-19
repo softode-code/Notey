@@ -1,19 +1,18 @@
 import 'package:Notey/res/colors.dart';
-import 'package:Notey/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class GoogleTextButton extends StatelessWidget {
   const GoogleTextButton({
-    Key key,
+    Key key, this.onPressed,
   }) : super(key: key);
+
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        await AuthService().googleSignIn();
-      },
+      onTap: onPressed,
       child: Container(
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(

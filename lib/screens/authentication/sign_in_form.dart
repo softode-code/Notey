@@ -30,6 +30,12 @@ class _SignInFormState extends State<SignInForm> {
   final TextEditingController _passwordController = TextEditingController();
   LoginBloc _loginBloc;
 
+  bool get isPopulated => _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty;
+
+  bool isButtonEnabled(LoginState state) {
+    return state.isFormValid && isPopulated && !state.isSubmitting;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -51,13 +57,16 @@ class _SignInFormState extends State<SignInForm> {
                 children: [
                   TextFormFieldBackground(
                     child: TextFormField(
+                      initialValue: null,
+                      keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.always,
                       decoration: inputDecoration.copyWith(
                         hintText: 'Email',
                         icon: Icon(
                           Icons.email_outlined,
                         )
                       ),
-                      validator: (val) => state.isEmailValid ? null : 'Please enter your email.',
+                      validator: (val) => state.isEmailValid ? null : 'Invalid email.',
                       controller: _emailController,
                     ),
                   ),
@@ -72,8 +81,9 @@ class _SignInFormState extends State<SignInForm> {
                               Icons.lock
                             )
                           ),
+                          autovalidateMode: AutovalidateMode.always,
                           obscureText: !showPassword,
-                          validator: (val) => state.isPasswordValid ? 'Password should be at least 6 characters long.' : null,
+                          validator: (val) => state.isPasswordValid ? null : 'Invalid Password',
                           controller: _passwordController,
                         ),
                         Positioned(
@@ -94,7 +104,11 @@ class _SignInFormState extends State<SignInForm> {
                   Center(
                     child: FormPrimaryButton(
                       text: 'Sign in',
-                      onPressed: _onSignInWithCredentialPressed,
+                      onPressed: (){
+                        if(isButtonEnabled(state)){
+                          _onSignInWithCredentialPressed();
+                        }
+                      } ,
                     ),
                   ),
                   SizedBox(height:35.0),
