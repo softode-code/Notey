@@ -30,16 +30,27 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
   final AuthService _authService;
 
   MyApp({AuthService authService}) : _authService = authService;
 
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationStarted());
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationStarted());
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Notey',
@@ -49,7 +60,7 @@ class MyApp extends StatelessWidget {
           if(state is AuthenticationFailure){
             return Welcome();
           } else if (state is AuthenticationSuccess){
-            return Home();
+            return Home(user: state.user,);
           }
           //Splash Screen
           else if(state is AuthenticationInitial) {
@@ -59,5 +70,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
 }

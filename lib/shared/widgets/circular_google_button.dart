@@ -6,18 +6,15 @@ import 'package:flutter_svg/svg.dart';
 
 class CircluarGoogleButton extends StatelessWidget {
   const CircluarGoogleButton({
-    Key key,
+    Key key, this.onPressed,
   }) : super(key: key);
+
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        dynamic result = await AuthService().googleSignIn();
-        if(result != null ){
-          Navigator.pop(context);
-        }
-      },
+      onTap: onPressed,
       child: Container(
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
