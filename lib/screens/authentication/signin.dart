@@ -8,26 +8,19 @@ import 'package:Notey/shared/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignIn extends StatefulWidget {
-
+class SignIn extends StatelessWidget {
+  
   final Function toggleView;
   final AuthService authService;
 
   const SignIn({Key key, this.toggleView, this.authService}) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
-}
-
-class _SignInState extends State<SignIn> {
-  
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(authService: widget.authService),
+          create: (context) => LoginBloc(authService: authService),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
             child: SingleChildScrollView(
@@ -86,7 +79,7 @@ class _SignInState extends State<SignIn> {
                   Footer(
                     text: 'Not a member?',
                     actionText: 'Sign up',
-                    onPressed: widget.toggleView,
+                    onPressed: toggleView,
                   )
                 ],
               ),
