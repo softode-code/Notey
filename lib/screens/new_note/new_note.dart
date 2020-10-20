@@ -1,4 +1,5 @@
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/screens/new_note/choose_color_dialog.dart';
 import 'package:Notey/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,15 @@ class _NewNoteState extends State<NewNote> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+
+  void openDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return ChooseColorDialog();
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +87,7 @@ class _NewNoteState extends State<NewNote> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: () => print('Open Pallette'),
+                      onTap: () async => openDialog(),
                       child: SvgPicture.asset('assets/color_pallette.svg')
                     ),
                     Text(
@@ -97,4 +107,6 @@ class _NewNoteState extends State<NewNote> {
       ),
     );
   }
+
 }
+
