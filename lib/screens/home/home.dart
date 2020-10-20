@@ -2,8 +2,8 @@ import 'package:Notey/bloc/authentication_bloc/authentication_bloc.dart';
 import 'package:Notey/bloc/authentication_bloc/authentication_event.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
+import 'package:Notey/screens/new_note/new_note.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatelessWidget {
 
@@ -16,10 +16,10 @@ class Home extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          Icons.logout,
+          Icons.add,
           color: onPrimary,
         ),
-        onPressed:() async => BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut()),
+        onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => NewNote())),
       ),
       body: Center(
         child: Text(
