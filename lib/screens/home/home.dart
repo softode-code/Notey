@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        elevation: 0.0,
         child: Icon(
           Icons.add,
           color: onPrimary,
