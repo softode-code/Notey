@@ -1,19 +1,14 @@
+import 'package:Notey/bloc/new_note_bloc/new_note_bloc.dart';
+import 'package:Notey/bloc/new_note_bloc/new_note_event.dart';
 import 'package:Notey/res/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class ChooseColorDialog extends StatelessWidget {
   ChooseColorDialog({
     Key key,
   }) : super(key: key);
-
-  List<Color> colors = [
-    Color(0xFFFFFFFF),
-    Color(0xFFFAF8F0),
-    Color(0xFFFBC7C3),
-    Color(0xFFE44652),
-    Color(0xFF043353),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +20,7 @@ class ChooseColorDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Choose a color',
+              'Pick a color',
               style: TextStyle(
                 fontSize: 18.0
               ),
@@ -34,54 +29,35 @@ class ChooseColorDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(5, (index) {
-                return Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: colors[index],
-                  shape: BoxShape.circle,
-                  border: Border.all(color: black20, width: 1),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(2,1),
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 10
-                    )
-                  ]
-                ),
-              );
+                return GestureDetector(
+                  onTap: () => BlocProvider.of<NewNoteBloc>(context).add(NewNoteColorChanged(colorCode: noteColors[index].value, onColorCode: onNoteColors[index].value)),
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: noteColors[index],
+                      shape: BoxShape.circle,
+                      border: Border.all(color: black20, width: 1),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(2,1),
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10
+                        )
+                      ]
+                    ),
+                  ),
+                );
               }),
             ),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FlatButton(
-                  onPressed:() => Navigator.pop(context),
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(
-                      color: black50
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap:() => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical:10, horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: primaryBackground,
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                        color: primaryColor
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FlatButton(
+                color: primaryBackground,
+                onPressed: () => Navigator.pop(context),
+                child: Text('Done', style: TextStyle(color: primaryColor),),
+              ),
             )
           ],
         ),
