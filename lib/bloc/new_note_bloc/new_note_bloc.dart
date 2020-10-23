@@ -48,18 +48,18 @@ class NewNoteBloc extends Bloc<NewNoteEvent, NewNoteState> {
   }
 
   Stream<NewNoteState> _mapNoteSavedPressedToState(String title, String noteText, int colorCode, int onColorCode) async* {
-    yield NewNoteState.loading();
+    yield NewNoteState.loading(state);
     try{
       Note note = Note(title: title, note: noteText, colorCode: colorCode, onColorCode: onColorCode);
       dynamic result = await _noteRepository.addNote(note);
       if(result != null){
-        yield NewNoteState.success();
+        yield NewNoteState.success(state);
       } else {
-        yield NewNoteState.failure();
+        yield NewNoteState.failure(state);
       }
     } catch(e){
       print(e.toString());
-      yield NewNoteState.failure();
+      yield NewNoteState.failure(state);
     }
   }
  

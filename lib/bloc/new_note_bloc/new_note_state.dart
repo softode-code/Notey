@@ -26,27 +26,39 @@ class NewNoteState{
     );
   }
 
-  factory NewNoteState.loading(){
+  factory NewNoteState.loading(NewNoteState previousState){
     return NewNoteState(
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
+      title: previousState.title,
+      note: previousState.note,
+      colorCode: previousState.colorCode,
+      onColorCode: previousState.onColorCode
     );
   }
 
-  factory NewNoteState.success(){
+  factory NewNoteState.success(NewNoteState previousState){
     return NewNoteState(
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
+      title: previousState.title,
+      note: previousState.note,
+      colorCode: previousState.colorCode,
+      onColorCode: previousState.onColorCode
     );
   }
 
-  factory NewNoteState.failure(){
+  factory NewNoteState.failure(NewNoteState previousState){
     return NewNoteState(
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
+      title: previousState.title,
+      note: previousState.note,
+      colorCode: previousState.colorCode,
+      onColorCode: previousState.onColorCode
     );
   }
 

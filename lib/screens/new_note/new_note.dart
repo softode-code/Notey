@@ -63,7 +63,7 @@ class _NewNoteState extends State<NewNote> {
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Sign-in failed!'),
+                        Text('Couldn\'t save note!'),
                         Icon(Icons.error_outline, color: Colors.white,)
                       ],
                     ),
@@ -83,7 +83,7 @@ class _NewNoteState extends State<NewNote> {
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Signing in...'),
+                        Text('Saving...'),
                         CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                         )

@@ -1,6 +1,5 @@
 import 'package:Notey/bloc/new_note_bloc/new_note_bloc.dart';
 import 'package:Notey/bloc/new_note_bloc/new_note_event.dart';
-import 'package:Notey/res/colors.dart';
 import 'package:Notey/shared/widgets/app_bar_action_button.dart';
 import 'package:Notey/shared/widgets/discard_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class NewNoteAppBar extends StatelessWidget {
             if(BlocProvider.of<NewNoteBloc>(context).state.isEmpty){
               Navigator.pop(context);
             } else {
-              openBottomSheet(context);
+              _openBottomSheet(context);
             }
           },
           child: SvgPicture.asset('assets/back_icon.svg'
@@ -41,7 +40,7 @@ class NewNoteAppBar extends StatelessWidget {
     );
   }
 
-  void openBottomSheet(BuildContext context) async {
+  void _openBottomSheet(BuildContext context) async {
     await showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
