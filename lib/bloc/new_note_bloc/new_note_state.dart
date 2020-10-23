@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 
 
 class NewNoteState{
-  final bool isTitleEmpty;
-  final bool isNoteEmpty;
+  final String title;
+  final String note;
   final int colorCode;
   final int onColorCode;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  bool get isEmpty => isTitleEmpty && isNoteEmpty;
+  bool get isEmpty => title.isEmpty & note.isEmpty;
 
-  NewNoteState({this.onColorCode, this.isTitleEmpty, this.isNoteEmpty, this.isSubmitting, this.isSuccess, this.isFailure, this.colorCode});
+  NewNoteState({this.onColorCode, this.note, this.title, this.isSubmitting, this.isSuccess, this.isFailure, this.colorCode});
 
   factory NewNoteState.initial(){
     return NewNoteState(
-      isTitleEmpty: true,
-      isNoteEmpty: true,
+      title: '',
+      note: '',
       colorCode: Colors.white.value,
       onColorCode: Colors.black.value,
       isSubmitting: false,
@@ -26,15 +26,39 @@ class NewNoteState{
     );
   }
 
+  factory NewNoteState.loading(){
+    return NewNoteState(
+      isSubmitting: true,
+      isSuccess: false,
+      isFailure: false,
+    );
+  }
+
+  factory NewNoteState.success(){
+    return NewNoteState(
+      isSubmitting: false,
+      isSuccess: true,
+      isFailure: false,
+    );
+  }
+
+  factory NewNoteState.failure(){
+    return NewNoteState(
+      isSubmitting: false,
+      isSuccess: false,
+      isFailure: true,
+    );
+  }
+
   NewNoteState update({
     int colorCode,
-    bool isTitleEmpty,
-    bool isNoteEmpty,
+    String title,
+    String note,
     int onColorCode
   }) {
     return copyWith(
-      isTitleEmpty: isTitleEmpty,
-      isNoteEmpty: isNoteEmpty,
+      title: title,
+      note: note,
       colorCode: colorCode,
       onColorCode: onColorCode,
       isSubmitting: false,
@@ -44,8 +68,8 @@ class NewNoteState{
   }
   
   NewNoteState copyWith({
-    bool isTitleEmpty,
-    bool isNoteEmpty,
+    String title,
+    String note,
     int colorCode,
     int onColorCode,
     bool isSubmitting,
@@ -53,8 +77,8 @@ class NewNoteState{
     bool isFailure
   }){
     return NewNoteState(
-      isTitleEmpty: isTitleEmpty ?? this.isTitleEmpty,
-      isNoteEmpty: isNoteEmpty ?? this.isNoteEmpty,
+      title: title ?? this.title,
+      note: note ?? this.note,
       colorCode: colorCode ?? this.colorCode,
       onColorCode: onColorCode ?? this.onColorCode,
       isSuccess: isSuccess ?? this.isSuccess,

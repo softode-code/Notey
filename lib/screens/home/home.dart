@@ -1,5 +1,3 @@
-import 'package:Notey/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:Notey/bloc/authentication_bloc/authentication_event.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
 import 'package:Notey/screens/new_note/new_note.dart';
@@ -20,7 +18,7 @@ class Home extends StatelessWidget {
           Icons.add,
           color: onPrimary,
         ),
-        onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => NewNote())),
+        onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => NewNote(uid: user.uid,))),
       ),
       body: Center(
         child: Text(

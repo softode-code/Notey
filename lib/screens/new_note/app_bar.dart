@@ -1,4 +1,5 @@
 import 'package:Notey/bloc/new_note_bloc/new_note_bloc.dart';
+import 'package:Notey/bloc/new_note_bloc/new_note_event.dart';
 import 'package:Notey/shared/widgets/app_bar_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,11 @@ class NewNoteAppBar extends StatelessWidget {
         ),
         AppBarActionButton(
           text: 'Save',
-          onPressed: () => print('save'),
+          onPressed: () {
+            if(!BlocProvider.of<NewNoteBloc>(context).state.isEmpty){
+              BlocProvider.of<NewNoteBloc>(context).add(NewNoteSavePressed());
+            }
+          },
         )
       ],
     );

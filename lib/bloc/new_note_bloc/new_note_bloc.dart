@@ -1,11 +1,16 @@
 import 'package:Notey/bloc/new_note_bloc/new_note_event.dart';
 import 'package:Notey/bloc/new_note_bloc/new_note_state.dart';
+import 'package:Notey/models/note_model.dart';
+import 'package:Notey/services/note_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewNoteBloc extends Bloc<NewNoteEvent, NewNoteState> {
 
+  final NoteRepository _noteRepository;
 
-  NewNoteBloc() : super(NewNoteState.initial());
+  NewNoteBloc({NoteRepository noteRepository}) :
+    _noteRepository = noteRepository,
+    super(NewNoteState.initial());
 
   @override
   Stream<NewNoteState> mapEventToState(NewNoteEvent event) async* {
@@ -19,19 +24,19 @@ class NewNoteBloc extends Bloc<NewNoteEvent, NewNoteState> {
       yield* _mapNoteColorChangedEventToState(event.colorCode, event.onColorCode);
     }
     if(event is NewNoteSavePressed){
-
+      yield* _mapNoteSavedPressedToState(state.title, state.note, state.colorCode, state.onColorCode);
     }
   }
 
   Stream<NewNoteState> _mapTitleChangedEventToState(String title) async* {
     yield state.update(
-      isTitleEmpty: title.isEmpty
+      title: title
     );
   }
 
   Stream<NewNoteState> _mapNoteChangedEventToState(String note) async* {
     yield state.update(
-      isNoteEmpty: note.isEmpty
+      note: note
     );
   }
 
@@ -42,8 +47,20 @@ class NewNoteBloc extends Bloc<NewNoteEvent, NewNoteState> {
     );
   }
 
-  Stream<NewNoteState> _mapNoteSavedPressedToState(String title, String note, int colorCode) async* {
-    //TODO: add note to firestore
+  Stream<NewNoteState> _mapNoteSavedPressedToState(String title, String noteText, int colorCode, int onColorCode) async* {
+    yield NewNoteState.loading();
+    try{
+      Note note = Note(title: title, note: noteText, colorCode: colorCode, onColorCode: onColorCode);
+      dynamic result = await _noteRepository.addNote(note);
+      if(result != null){
+        yield NewNoteState.success();
+      } else {
+        yield NewNoteState.failure();
+      }
+    } catch(e){
+      print(e.toString());
+      yield NewNoteState.failure();
+    }
   }
  
 }

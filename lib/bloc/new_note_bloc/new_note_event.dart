@@ -31,11 +31,7 @@ class NewNoteColorChanged extends NewNoteEvent{
 }
 
 class NewNoteSavePressed extends NewNoteEvent{
-  final String title;
-  final String note;
-  final String colorCode;
-  NewNoteSavePressed({this.title, this.note, this.colorCode});
 
   @override
-  List<Object> get props => [this.title, this.note, this.colorCode];
+  List<Object> get props => [];
 }

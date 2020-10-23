@@ -1,4 +1,6 @@
 import 'package:Notey/models/user_model.dart';
+import 'package:Notey/services/note_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -21,8 +23,9 @@ class AuthService {
       print('enter');
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
-      //TODO: add user to firestore
-      return _userFromFirebase(user);
+      UserModel userModel = _userFromFirebase(user);
+      FirebaseFirestore.instance.collection('users').doc('${user.uid}').set(userModel.toMap());
+      return userModel;
     } catch(e){
       print('Registring user went wrong.');
       print(e.toString());
@@ -56,7 +59,8 @@ class AuthService {
       User user = userCredential.user;
 
       if(userCredential.additionalUserInfo.isNewUser){
-        //TODO:add user to database
+        UserModel userModel = _userFromFirebase(user);
+        FirebaseFirestore.instance.collection('users').doc('${user.uid}').set(userModel.toMap());
       }
 
       return user;
