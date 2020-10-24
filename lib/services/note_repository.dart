@@ -36,4 +36,12 @@ class NoteRepository {
     });
   }
 
+  Future deleteNotes(List<String> noteIds) async {
+    return noteIds.forEach(
+      (id) {
+        _notesCollection.doc(id).delete();
+      }
+    );
+  }
+
 }

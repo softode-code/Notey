@@ -1,3 +1,6 @@
+import 'package:Notey/bloc/notes_list_bloc/notes_list_bloc.dart';
+import 'package:Notey/bloc/notes_list_bloc/notes_list_event.dart';
+import 'package:Notey/bloc/notes_list_bloc/notes_list_state.dart';
 import 'package:Notey/models/note_model.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
@@ -6,6 +9,7 @@ import 'package:Notey/screens/new_note/new_note.dart';
 import 'package:Notey/screens/settings/settings.dart';
 import 'package:Notey/services/note_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'no_notes_illustration.dart';
 
@@ -48,21 +52,30 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.0,),
-              StreamBuilder(
-                stream: NoteRepository(uid: user.uid).notes(),
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    List<Note> notes = snapshot.data;
-                    if(notes.length >0){
-                      return NoteList(notes: notes);
-                    } else {
-                      return NoNotesIllustration();
-                    }
-                  }
-                  
-                  return NoNotesIllustration();
-                  
+              BlocProvider<NotesListBloc>(
+                create: (context){
+                  return NotesListBloc(
+                    noteRepository: NoteRepository(uid: user.uid)
+                  )..add(LoadNotes());
                 },
+                child: BlocBuilder<NotesListBloc, NotesListState>(
+                  builder: (context, state){
+                    if(state is NotesLoadInProgress){
+                      return Center(
+                        child: Text('Loading...' ),
+                      );
+                    }
+                    if (state is NotesLoaded){
+                      return NoteList(notes: state.notes);
+                    }
+                    if(state is NotesLoadFailure){
+                      return Center(
+                        child: Text('Couldn\'t load notes.' ),
+                      );
+                    }
+                    
+                  },
+                ),
               )
             ],
           ),

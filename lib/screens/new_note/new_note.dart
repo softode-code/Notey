@@ -52,6 +52,7 @@ class _NewNoteState extends State<NewNote> {
   Widget build(BuildContext context) {
     Size size  = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: BlocProvider(
         create: (context) => _newNoteBloc,
         child: BlocListener<NewNoteBloc, NewNoteState>(
