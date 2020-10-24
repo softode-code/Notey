@@ -1,5 +1,6 @@
 import 'package:Notey/models/note_model.dart';
 import 'package:Notey/screens/home/no_notes_illustration.dart';
+import 'package:Notey/screens/note/note_screen.dart';
 import 'package:flutter/material.dart';
 import 'note_tile.dart';
 
@@ -17,7 +18,10 @@ class NoteList extends StatelessWidget {
           itemBuilder: (context, index) => 
             InkWell(
               onTap: () => print(notes),
-              child: NoteTile(note: notes[index],)
+              child: InkWell(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => NoteScreen(note: notes[index],))),
+                child: NoteTile(note: notes[index],)
+              )
             )
         )
       );
