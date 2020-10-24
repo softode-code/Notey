@@ -1,11 +1,12 @@
+import 'package:Notey/models/note_model.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
 import 'package:Notey/screens/home/notes_list.dart';
 import 'package:Notey/screens/new_note/new_note.dart';
 import 'package:Notey/screens/settings/settings.dart';
+import 'package:Notey/services/note_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'no_notes_illustration.dart';
 
 class Home extends StatelessWidget {
@@ -46,7 +47,23 @@ class Home extends StatelessWidget {
                   fontSize: 32.0
                 ),
               ),
-              NoNotesIllustration()
+              SizedBox(height: 20.0,),
+              StreamBuilder(
+                stream: NoteRepository(uid: user.uid).notes(),
+                builder: (context, snapshot){
+                  if(snapshot.hasData){
+                    List<Note> notes = snapshot.data;
+                    if(notes.length >0){
+                      return NoteList(notes: notes);
+                    } else {
+                      return NoNotesIllustration();
+                    }
+                  }
+                  
+                  return NoNotesIllustration();
+                  
+                },
+              )
             ],
           ),
         ),

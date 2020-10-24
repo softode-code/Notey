@@ -28,4 +28,12 @@ class NoteRepository {
   Future updateNote(Note note) async {
     return await _notesCollection.doc(note.id).set(note.toMap());
   }
+
+  Stream<List<Note>> notes() {
+    return _notesCollection.snapshots().map((snapshot) {
+      return snapshot.docs.
+      map((doc) => Note.fromMap(doc.data())).toList();
+    });
+  }
+
 }
