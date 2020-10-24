@@ -3,9 +3,8 @@ import 'package:equatable/equatable.dart';
 
 abstract class NotesListState extends Equatable{
   List<Note> notes;
-  List<String> selectedNotes;
 
-  NotesListState({this.notes, this.selectedNotes});
+  NotesListState({this.notes,});
 
    @override
   List<Object> get props => [];
@@ -16,12 +15,10 @@ class NotesLoadInProgress extends NotesListState{}
 class NotesLoaded extends NotesListState{
 
   NotesLoaded({List<Note> notes, List<String> selectedNotes})
-    :super(notes: notes, selectedNotes: selectedNotes);
-
-  bool get haveSelected => selectedNotes != null;
+    :super(notes: notes,);
 
   @override
-  List<Object> get props => [this.notes, this.selectedNotes];
+  List<Object> get props => [this.notes,];
 }
 
 class NotesLoadFailure extends NotesListState{}

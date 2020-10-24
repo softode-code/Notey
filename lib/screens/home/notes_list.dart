@@ -5,9 +5,8 @@ import 'note_tile.dart';
 
 class NoteList extends StatelessWidget {
   final List<Note> notes;
-  final List<String> selectedNotes;
 
-  const NoteList({Key key, @required this.notes, this.selectedNotes}) : super(key: key);
+  const NoteList({Key key, @required this.notes,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,11 @@ class NoteList extends StatelessWidget {
        return Expanded(
         child: ListView.builder(
           itemCount: notes.length,
-          itemBuilder: (context, index) => NoteTile(note: notes[index],)
+          itemBuilder: (context, index) => 
+            InkWell(
+              onTap: () => print(notes),
+              child: NoteTile(note: notes[index],)
+            )
         )
       );
     } else {

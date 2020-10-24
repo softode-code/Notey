@@ -13,20 +13,11 @@ class NotesListBloc extends Bloc<NotesListEvent, NotesListState>{
   NotesListBloc({NoteRepository noteRepository})
     : assert(noteRepository != null),
       _noteRepository = noteRepository, super(NotesLoadInProgress());
-
-  @override
-  NotesListState get initialState => NotesLoadInProgress();
   
   @override
   Stream<NotesListState> mapEventToState(NotesListEvent event) async *{
     if(event is LoadNotes){
       yield* _mapLoadNotesToState();
-    }
-    if(event is NoteSelected){
-      yield* _mapNoteSelectedToState(event.noteId);
-    }
-    if(event is NotesDeletePressed) {
-      yield* _mapNotesDeletePressed();
     }
     if(event is NotesUpdated){
       yield* _mapNotesUpdatedToState(event);
@@ -44,23 +35,8 @@ class NotesListBloc extends Bloc<NotesListEvent, NotesListState>{
     );
   }
 
-  Stream<NotesListState> _mapNoteSelectedToState(String noteId) async*{
-    if(state is NotesLoaded){
-      if(state.selectedNotes == null){
-        state.selectedNotes = [];
-      }
-      state.selectedNotes.add(noteId);
-      yield state;
-    }
-  }
-
-  Stream<NotesListState> _mapNotesDeletePressed() async* {
-    _noteRepository.deleteNotes(state.selectedNotes);
-    state.selectedNotes = null;
-  }
-
   Stream<NotesListState> _mapNotesUpdatedToState(NotesUpdated event) async* {
-    yield NotesLoaded(notes: event.notes, selectedNotes: null);
+    yield NotesLoaded(notes: event.notes,);
   }
 
   

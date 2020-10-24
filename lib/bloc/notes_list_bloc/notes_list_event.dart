@@ -8,18 +8,6 @@ abstract class NotesListEvent extends Equatable{
 
 class LoadNotes extends NotesListEvent{}
 
-class NoteLoadSuccess extends NotesListEvent{}
-
-class NoteSelected extends NotesListEvent{
-  final String noteId;
-
-  NoteSelected(this.noteId);
-  @override
-  List<Object> get props => [this.noteId];
-}
-
-class NotesDeletePressed extends NotesListEvent{}
-
 class NotesUpdated extends NotesListEvent{
   final List<Note> notes;
 
