@@ -1,7 +1,6 @@
 import 'package:Notey/bloc/notes_list_bloc/notes_list_bloc.dart';
 import 'package:Notey/bloc/notes_list_bloc/notes_list_event.dart';
 import 'package:Notey/bloc/notes_list_bloc/notes_list_state.dart';
-import 'package:Notey/models/note_model.dart';
 import 'package:Notey/models/user_model.dart';
 import 'package:Notey/res/colors.dart';
 import 'package:Notey/screens/home/notes_list.dart';
@@ -11,7 +10,6 @@ import 'package:Notey/services/note_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'no_notes_illustration.dart';
 
 class Home extends StatelessWidget {
 
@@ -66,7 +64,7 @@ class Home extends StatelessWidget {
                       );
                     }
                     if (state is NotesLoaded){
-                      return NoteList(notes: state.notes);
+                      return NoteList(notes: state.notes, noteRepository: NoteRepository(uid: user.uid),);
                     }
                     if(state is NotesLoadFailure){
                       return Center(
