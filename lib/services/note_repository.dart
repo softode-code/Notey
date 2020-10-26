@@ -12,7 +12,6 @@ class NoteRepository {
 
   Future addNote(Note note) async {
     try {
-      note.lastModified = Timestamp.now();
       DocumentReference documentReference =
           await _notesCollection.add(note.toMap());
       String docId = documentReference.id;
@@ -26,6 +25,7 @@ class NoteRepository {
   }
 
   Future updateNote(Note note) async {
+    note.lastModified = Timestamp.now();
     return await _notesCollection.doc(note.id).set(note.toMap());
   }
 
@@ -36,12 +36,8 @@ class NoteRepository {
     });
   }
 
-  Future deleteNotes(List<String> noteIds) async {
-    return noteIds.forEach(
-      (id) {
-        _notesCollection.doc(id).delete();
-      }
-    );
+  Future deleteNote(Note note) async {
+    return  _notesCollection.doc(note.id).delete();
   }
 
 }

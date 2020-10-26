@@ -51,7 +51,10 @@ class _NoteScreenState extends State<NoteScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset('assets/back_icon.svg', color: Color(note.onColorCode),),
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: SvgPicture.asset('assets/back_icon.svg', color: Color(note.onColorCode),)
+                        ),
                         Container(
                           padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                           decoration: BoxDecoration(
